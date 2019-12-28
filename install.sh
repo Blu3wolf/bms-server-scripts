@@ -28,13 +28,13 @@ export WINEDEBUG="fixme-all"
 export PATH="$WINE_DIR/bin:$PATH"
 export LD_LIBRARY_PATH="$WINE_DIR/lib:$WINE_DIR/lib64:$LD_LIBRARY_PATH"
 
-echo "This script will install Falcon BMS 4.33 U5 with wine"
+echo "This script will install Falcon BMS 4.34 U1 with wine"
 echo "Please see the README.md for more details."
 read -p "Do you want to continue? (y/N) " CONTINUE
 
 if [ "$CONTINUE" != "y" ]; then exit 0; fi
 
-BMS_PATH=`winepath 'C:\Falcon BMS 4.33 U1'`
+BMS_PATH=`winepath 'C:\Falcon BMS 4.34'`
 BMS_CONFIG="$BMS_PATH/User/Config/Falcon BMS.cfg"
 
 # Download and extract patched version of wine
@@ -67,7 +67,7 @@ fi
 
 # Download Falcon BMS install files
 if [ "$DOWNLOAD_BMS" -eq "1" ]; then
-	cp $BASEDIR/torrent/Falcon_BMS_4.33_U*.torrent $BASEDIR/sources/
+	cp $BASEDIR/torrent/Falcon_BMS_4.3*.torrent $BASEDIR/sources/
 	cd $BASEDIR/sources
 	aria2c --seed-time=$SEED_TIME $BASEDIR/sources/Falcon_BMS_4.33_U*.torrent
 	rm $BASEDIR/sources/Falcon_BMS_4.33_U*.torrent
@@ -75,13 +75,10 @@ fi
 # Install Falcon BMS using wine
 if [ "$INSTALL_BMS" -eq "1" ]; then
 	cd $BASEDIR/sources
-	unzip Falcon_BMS_4.33_U1_Setup.zip
-	ln -s $BASEDIR/sources/Falcon\ BMS\ 4.33\ U1\ Setup/ `winepath c:\\`
-	$WINE 'C:\Falcon BMS 4.33 U1 Setup\Setup.exe'
-	$WINE Falcon_BMS_4.33_U2_Incremental.exe
-	$WINE Falcon_BMS_4.33_U3_Incremental.exe
-	$WINE Falcon_BMS_4.33_U4_Incremental.exe
-	$WINE Falcon_BMS_4.33_U5_Incremental.exe
+	unzip Falcon_BMS_4.34_Setup.zip
+	ln -s $BASEDIR/sources/Falcon\ BMS\ 4.34\ Setup/ `winepath c:\\`
+	$WINE 'C:\Falcon BMS 4.34 Setup\Setup.exe'
+	$WINE Falcon_BMS_4.34_U1_Incremental.exe
 fi
 
 # Tweak the Falcon BMS configuration for best performance
